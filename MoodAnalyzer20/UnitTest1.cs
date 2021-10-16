@@ -40,5 +40,22 @@ namespace MoodAnalyzer20
             Assert.AreEqual(excepted, actual);//Checking my actual result and Excepted Results Matches or not
 
         }
+
+        [TestMethod]
+        public void GivenShouldReturnHappy()
+        {
+            ///AAA methology
+
+            //Arrange
+            string expected = "happy";
+            ExceptionMood moodanalyzer = new ExceptionMood("I am in happy mood");//created object amd passing message
+
+            //ACT
+            string actual = moodanalyzer.AnalyzeMood();
+
+            //Assert
+            Assert.AreEqual(expected, actual);//checking my actual result and Expected results matches or not
+        }
+         
     }
 }

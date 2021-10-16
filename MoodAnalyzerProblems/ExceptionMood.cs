@@ -15,17 +15,24 @@ namespace MoodAnalyzerProblems
         }
         public string AnalyzeMood()
         {
-            if(message.ToLower().Contains("happy")) // checking condition if my message contain happy or not
+            try
+            {
+                if (message.ToLower().Contains("happy")) // checking condition if my message contain happy or not
+                {
+                    return "happy";
+                }
+                else if (message.ToLower().Contains("sad")) //checking condition if my message contain sad or not
+                {
+                    return "sad";
+                }
+                else
+                {
+                    return "neither happy nor sad";
+                }
+            }
+            catch(NullReferenceException)
             {
                 return "happy";
-            }
-            else if(message.ToLower().Contains("sad")) //checking condition if my message contain sad or not
-            {
-                return "sad";
-            }       
-            else
-            {
-                return "neither happy nor sad";
             }
             
         }
