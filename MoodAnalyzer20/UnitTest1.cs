@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MoodAnalyzerProblems;
+using MoodAnalyzer;
 using System;
+using System.Runtime.Serialization;
 
-namespace MoodAnalyzer20
+namespace MoodTesting
 {
     [TestClass]
     public class UnitTest1
@@ -20,7 +21,7 @@ namespace MoodAnalyzer20
             string actual = moodAnalyser.AnalyzeMood();
 
             //ASSERT
-            Assert.AreEqual(excepted, actual); ;//Checking my actual result and Excepted Results Matches or not
+            Assert.AreEqual(excepted, actual); ;//Checking wether my actual rasult and Excepted Results Matches or not
 
         }
 
@@ -37,25 +38,52 @@ namespace MoodAnalyzer20
             string actual = moodAnalyser.AnalyzeMood();
 
             //ASSERT
-            Assert.AreEqual(excepted, actual);//Checking my actual result and Excepted Results Matches or not
+            Assert.AreEqual(excepted, actual);//Checking wether my actual rasult and Excepted Results Matches or not
 
+        }
+        [TestMethod]
+        [TestCategory("Customexception")]
+        public void GivenNullShouldReturnCustomNullException()
+        {
+            //AAA Methology
+
+            //Arrange
+            string excepted = "Message should not be null";
+            ExceptionMood moodAnalyser = new ExceptionMood(null);//Passing an Null Message To call Null_Type_Exception
+            try
+            {
+                //ACT
+                string actual = moodAnalyser.AnalyzeMood();
+            }
+
+            catch (CustomException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(excepted, ex.Message);//Checking wether my actual result and Excepted Results Matches or not
+            }
         }
 
         [TestMethod]
-        public void GivenShouldReturnHappy()
+        [TestCategory("Customexception")]
+        public void GivenEmptyShouldReturnCustomEmptyException()
         {
-            ///AAA methology
+            //AAA Methology
 
             //Arrange
-            string expected = "happy";
-            ExceptionMood moodanalyzer = new ExceptionMood("I am in happy mood");//created object amd passing message
-
-            //ACT
-            string actual = moodanalyzer.AnalyzeMood();
-
-            //Assert
-            Assert.AreEqual(expected, actual);//checking my actual result and Expected results matches or not
+            string excepted = "Message should not be empty";
+            ExceptionMood moodAnalyser = new ExceptionMood(string.Empty);//Passing an Empty Message  To call Empty_Type_Exception
+            try
+            {
+                //ACT
+                string actual = moodAnalyser.AnalyzeMood();
+            }
+            catch (CustomException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(excepted, ex.Message);//Checking wether my actual result and Excepted Results Matches or not
+            }
         }
-         
+
     }
+
 }
