@@ -10,7 +10,7 @@ namespace MoodAnalyzerProblems
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Mood Analyzer");
+            Console.WriteLine("Exception Mood");
             Console.ReadLine();
         }
     }

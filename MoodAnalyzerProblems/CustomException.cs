@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MoodAnalyzerProblems
 {
-    class CustomException:Exception
+    public class CustomException : Exception
     {
         public ExceptionType type;
         public enum ExceptionType
         {
-            EMPTY_TYPE_EXCEPTION,
             INVALID_MOOD_EXCEPTION,
+            EMPTY_TYPE_EXCEPTION,
+            CLASS_NOT_FOUND,
+            CONSTRUCTOR_NOT_FOUND,
         }
-        public CustomException(ExceptionType type, string message): base(message)
+
+        public CustomException(ExceptionType type, string massage) : base(massage)
         {
             this.type = type;
         }

@@ -5,17 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoodAnalyzer
+namespace MoodAnalyzerProblems
 {
     public class ExceptionMood
     {
-        public string message;
 
+        public string message;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExceptionMood"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param
+        public ExceptionMood()
+        {
+            Console.WriteLine("Default Constructor");
+        }
         public ExceptionMood(string message)
         {
             this.message = message;
         }
-
         public string AnalyzeMood()
         {
             try

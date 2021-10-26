@@ -1,46 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MoodAnalyzer;
 using System;
-using System.Runtime.Serialization;
+using MoodAnalyzerProblems;
 
-namespace MoodTesting
+
+namespace MoodAnalyzerProblems
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest1 
     {
-        [TestMethod]
-        public void GivenHappyShouldReturnHappy()
-        {
-            //AAA Methology
-
-            //Arrange
-            string excepted = "happy";
-            ExceptionMood moodAnalyser = new ExceptionMood("I am in a happy Mood");//Creating a object and passing a message
-
-            //ACT
-            string actual = moodAnalyser.AnalyzeMood();
-
-            //ASSERT
-            Assert.AreEqual(excepted, actual); ;//Checking wether my actual rasult and Excepted Results Matches or not
-
-        }
-
-        [TestMethod]
-        public void GivenSadShouldReturnSad()
-        {
-            //AAA Methology
-
-            //Arrange
-            string excepted = "sad";
-            ExceptionMood moodAnalyser = new ExceptionMood("I am in a sad mood");//Creating a object and passing a message
-
-            //ACT
-            string actual = moodAnalyser.AnalyzeMood();
-
-            //ASSERT
-            Assert.AreEqual(excepted, actual);//Checking wether my actual rasult and Excepted Results Matches or not
-
-        }
+        //TC-3 given null will return customized null exception message
         [TestMethod]
         [TestCategory("Customexception")]
         public void GivenNullShouldReturnCustomNullException()
@@ -48,21 +16,21 @@ namespace MoodTesting
             //AAA Methology
 
             //Arrange
-            string excepted = "Message should not be null";
-            ExceptionMood moodAnalyser = new ExceptionMood(null);//Passing an Null Message To call Null_Type_Exception
+            string expected = "Message should not be null";
+            ExceptionMood exceptionMood = new ExceptionMood(null);
             try
             {
                 //ACT
-                string actual = moodAnalyser.AnalyzeMood();
+                string actual = exceptionMood.AnalyzeMood();
             }
-
             catch (CustomException ex)
             {
                 //ASSERT
-                Assert.AreEqual(excepted, ex.Message);//Checking wether my actual result and Excepted Results Matches or not
+                Assert.AreEqual(expected, ex.Message);
             }
         }
 
+        //TC-3 given empty will return customized empty  message
         [TestMethod]
         [TestCategory("Customexception")]
         public void GivenEmptyShouldReturnCustomEmptyException()
@@ -70,20 +38,61 @@ namespace MoodTesting
             //AAA Methology
 
             //Arrange
-            string excepted = "Message should not be empty";
-            ExceptionMood moodAnalyser = new ExceptionMood(string.Empty);//Passing an Empty Message  To call Empty_Type_Exception
+            string expected = "Message should not be empty";
+            ExceptionMood exceptionMood = new ExceptionMood(string.Empty);
             try
             {
                 //ACT
-                string actual = moodAnalyser.AnalyzeMood();
+                string actual = exceptionMood.AnalyzeMood();
             }
             catch (CustomException ex)
             {
                 //ASSERT
-                Assert.AreEqual(excepted, ex.Message);//Checking wether my actual result and Excepted Results Matches or not
+                Assert.AreEqual(expected, ex.Message);
             }
         }
 
+        /// TC-4 Create Default Constructor Using Reflection
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void Given_MoodAnalyzer_Using_Reflection_Return_defaultConstructor()
+        {
+            //Creating object of the class to test
+           ExceptionMood exceptionMood = new ExceptionMood();
+            object obj = null;
+            try
+            {
+                //ACT
+                //
+                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                obj = factory.CreateMoodAnalyzerObject("MoodanalyzerProblems.ExceptionMood", "ExceptionMood");
+            }
+            catch (CustomException ex)
+            {
+                //ASSERT
+                throw new Exception(ex.Message);
+            }
+            obj.Equals(exceptionMood);
+        }
+        //For negative scenario, if class or constrotor name passed wrong it will give custom exception message
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMoodAnalyzerUsingReflectionReturnException()
+        {
+            string expected = "Constructor not found";
+            object obj = null;
+            try
+            {
+                //ACT
+                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                obj = factory.CreateMoodAnalyzerObject("MoodanalyzerProblems.ExceptionMood", "ExceptionMood");
+            }
+            catch (CustomException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
-
 }
